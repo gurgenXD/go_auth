@@ -1,6 +1,8 @@
 package routers
 
 import (
+	v1 "auth/api/routers/v1"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -9,13 +11,11 @@ const (
 )
 
 func New() (router *gin.Engine) {
-	router = gin.New()
-
-	router.Use(gin.Recovery())
+	router = gin.Default()
 
 	v1Router := router.Group(APIV1Path)
 	{
-		v1Router.GET("", func(ctx *gin.Context) { ctx.JSON(200, nil) })
+		v1Router.GET("", v1.Ping)
 	}
 
 	return
